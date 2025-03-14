@@ -3,10 +3,22 @@ import { Link, NavLink } from 'react-router-dom';
 import AuthContext from '../../context/authcontext/AuthContext';
 
 const Navbar = () => {
-    const {message} = useContext(AuthContext)
-    
-    const links = <><li><a>Item 1</a></li>
-        <li><a>Item 3</a></li></>
+    const { user, userLogOut } = useContext(AuthContext)
+
+    const handleLogout = () => {
+        userLogOut().then(() => {
+            // signout successfull
+        }).catch(error => {
+            console.log("Error", error.message)
+        })
+    }
+
+    const links =
+        <>
+            <NavLink>Home</NavLink>
+            <NavLink>Home</NavLink>
+            <NavLink>Home</NavLink>
+        </>
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -17,19 +29,25 @@ const Navbar = () => {
                     <ul
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
-                            {links}
+                        {links}
                     </ul>
                 </div>
-                <a className="btn btn-ghost text-xl">daisyUI</a>
+                <a className="btn btn-ghost text-xl">Job Portal</a>
             </div>
             <div className="navbar-center hidden lg:flex">
-                <ul className="menu menu-horizontal px-1">
+                <ul className="menu menu-horizontal px-1 gap-4">
                     {links}
                 </ul>
             </div>
             <div className="navbar-end gap-2">
-                <NavLink>Register</NavLink>
-                <NavLink className="btn">Login</NavLink>
+                {
+                    user ? <>
+                        {user.email}
+                        <button className='cursor-pointer' onClick={handleLogout}>Logout</button>
+                    </>
+                        : <><NavLink to="/registration">Register</NavLink>
+                            <NavLink to="/login" className="btn">Login</NavLink></>
+                }
             </div>
         </div>
     );
