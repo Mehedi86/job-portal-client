@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 
 const JobCard = ({ job }) => {
-    const { applicationDeadline, category, company, company_logo, description, hr_email, hr_name, jobType, location, requirements, responsibilities, salaryRange, status, title, _id } = job;
-    console.log(job)
+    const { company, company_logo, description, jobType, location, requirements, salaryRange, status, title, _id } = job;
+
     return (
         <div className="card bg-blue-50 w-full shadow-sm p-6 hover:scale-105 transition-transform duration-300 flex flex-col justify-between">
             <div className='pt-4'>
@@ -33,7 +33,7 @@ const JobCard = ({ job }) => {
             </div>
             <div className="md:flex items-center py-2 gap-4 justify-between">
                 <p className='py-4'><span className='font-bold'>Salary Range:</span> {salaryRange.min}-{salaryRange.max}</p>
-                <button className="btn btn-primary">Apply Now</button>
+                <Link to={`/jobs/${_id}`} className="btn btn-primary">Apply Now</Link>
             </div>
         </div>
     );
