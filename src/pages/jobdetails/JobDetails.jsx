@@ -1,11 +1,11 @@
 import React from 'react';
-import { useLoaderData } from 'react-router-dom';
+import { Link, useLoaderData } from 'react-router-dom';
 
 const JobDetails = () => {
     const {
         applicationDeadline, category, company, company_logo, description,
         hr_email, hr_name, jobType, location, requirements, responsibilities,
-        salaryRange, status, title
+        salaryRange, status, title, _id
     } = useLoaderData();
 
     return (
@@ -45,7 +45,7 @@ const JobDetails = () => {
                     <p><strong>Email:</strong> <a href={`mailto:${hr_email}`} className="text-blue-600 underline">{hr_email}</a></p>
                 </div>
                 <div>
-                    <button className='btn'>Apply Now</button>
+                    <Link to={`/job-apply/${_id}`} className='btn'>Apply Now</Link>
                 </div>
             </div>
         </div>
