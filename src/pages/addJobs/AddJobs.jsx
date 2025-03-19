@@ -1,18 +1,38 @@
 import React from 'react';
+import useHookContext from '../../hooks/UserContextHook';
+import Swal from 'sweetalert2';
 
 const AddJobs = () => {
+    const { user } = useHookContext();
     const handleAddJobs = e => {
         e.preventDefault();
 
         // take input Using FormData API (For File Uploads & Raw Data)
         const formData = new FormData(e.target)
         const initialData = Object.fromEntries(formData);
-        const { salaryMin, salaryMax, currency, ...newJObs } = initialData;
-        
-        newJObs.responsibilities = newJObs.responsibilities.split(', ');
-        newJObs.requirements = newJObs.requirements.split(', ');
-        newJObs.salaryRange = { salaryMin, salaryMax, currency }
-        console.log(newJObs)
+        const { salaryMin, salaryMax, currency, ...newJobs } = initialData;
+
+        newJobs.responsibilities = newJobs.responsibilities.split(', ');
+        newJobs.requirements = newJobs.requirements.split(', ');
+        newJobs.salaryRange = { salaryMin, salaryMax, currency }
+
+        fetch('http://localhost:5000/addJobs', {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(newJobs)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if(data.insertedId){
+                    Swal.fire({
+                        title: "Drag me!",
+                        icon: "success",
+                        draggable: true
+                      });
+                }
+            })
     }
 
     return (
@@ -99,7 +119,7 @@ const AddJobs = () => {
                     <input type="text" className="input w-full" placeholder="Md. Alamgir" name="hr_name" />
 
                     <label className="text-xl font-semibold">HR Email</label>
-                    <input type="email" className="input w-full" placeholder="finance.hr@securefinance.com" name="hr_email" />
+                    <input type="email" className="input w-full" placeholder="finance.hr@securefinance.com" name="hr_email" defaultValue={user?.email} />
 
                     <label className="text-xl font-semibold">Job Status</label>
                     <select className="input w-full" name="status">
