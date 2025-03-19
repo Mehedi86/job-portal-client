@@ -1,11 +1,25 @@
 import React from 'react';
 
 const AddJobs = () => {
+    const handleAddJobs = e => {
+        e.preventDefault();
+
+        // take input Using FormData API (For File Uploads & Raw Data)
+        const formData = new FormData(e.target)
+        const initialData = Object.fromEntries(formData);
+        const { salaryMin, salaryMax, currency, ...newJObs } = initialData;
+        
+        newJObs.responsibilities = newJObs.responsibilities.split(', ');
+        newJObs.requirements = newJObs.requirements.split(', ');
+        newJObs.salaryRange = { salaryMin, salaryMax, currency }
+        console.log(newJObs)
+    }
+
     return (
         <div className="bg-base-200 min-h-screen">
             <h2 className='text-4xl font-bold text-center py-12'>Add a Job</h2>
             <div className='p-6 m-12 border-4'>
-                <form className="fieldset">
+                <form onSubmit={handleAddJobs} className="fieldset">
                     <label className="text-xl font-semibold">Job Title</label>
                     <input type="text" className="input w-full" placeholder="Finance Manager" name="title" />
 
@@ -76,15 +90,10 @@ const AddJobs = () => {
                     <textarea className="input w-full" placeholder="Job description here..." name="description"></textarea>
 
                     <label className="text-xl font-semibold">Responsibilities</label>
-                    <input type="text" className="input w-full" placeholder="Manage budgets" name="responsibilities[]" />
-                    <input type="text" className="input w-full" placeholder="Prepare financial reports" name="responsibilities[]" />
-                    <input type="text" className="input w-full" placeholder="Ensure regulatory compliance" name="responsibilities[]" />
+                    <textarea className="input w-full" placeholder="Enter Responsiblities in every new line" name="responsibilities"></textarea>
 
                     <label className="text-xl font-semibold">Requirements</label>
-                    <input type="text" className="input w-full" placeholder="QuickBooks" name="requirements[]" />
-                    <input type="text" className="input w-full" placeholder="SAP" name="requirements[]" />
-                    <input type="text" className="input w-full" placeholder="Excel" name="requirements[]" />
-                    <input type="text" className="input w-full" placeholder="SQL" name="requirements[]" />
+                    <textarea className="input w-full" placeholder="Enter Job Requirements in every new line" name="requirements"></textarea>
 
                     <label className="text-xl font-semibold">HR Name</label>
                     <input type="text" className="input w-full" placeholder="Md. Alamgir" name="hr_name" />
@@ -107,28 +116,3 @@ const AddJobs = () => {
 
 export default AddJobs;
 
-
-// const applicationDeadline = {
-//     applicationDeadline: "2024-12-20",
-//     category: "Finance",
-//     company: "Local Inch Ltd",
-//     company_logo: "https://i.ibb.co/T1XRmbX/linkedin.png",
-//     description: "We are hiring a Finance Manager to oversee financial operations, budgeting, and reporting.",
-//     hr_email: "finance.hr@securefinance.com",
-//     hr_name: "Md. Alamgir",
-//     jobType: "Part-Time",
-//     location: "Gulshan, Dhaka",
-//     requirements: ["QuickBooks", "SAP", "Excel", "SQL"],
-//     responsibilities: [
-//       "Manage budgets",
-//       "Prepare financial reports",
-//       "Ensure regulatory compliance",
-//     ],
-//     salaryRange: {
-//       min: 50000,
-//       max: 70000,
-//       currency: "bdt",
-//     },
-//     status: "active",
-//     title: "Finance Manager",
-//   };
