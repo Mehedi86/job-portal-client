@@ -13,7 +13,7 @@ const JobCard = ({ job }) => {
                 <div className='flex gap-4'>
                     <figure>
                         <img className='w-16'
-                            src={company_logo}
+                            src={company_logo || "logo"}
                             alt="Shoes" />
                     </figure>
                     <div className='py-1'>
