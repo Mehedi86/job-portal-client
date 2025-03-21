@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import useHookContext from "../../hooks/UserContextHook";
+import { Link } from "react-router-dom";
 
 const MyPostedJobs = () => {
     const [postedJobs, setPostedJobs] = useState([]);
@@ -12,7 +13,7 @@ const MyPostedJobs = () => {
                 setPostedJobs(data);
             });
     }, [user?.email]);
-    
+
     return (
         <div>
             <h2 className="text-2xl font-bold mb-4">
@@ -27,7 +28,7 @@ const MyPostedJobs = () => {
                             <th className="border p-2">Type</th>
                             <th className="border p-2">Status</th>
                             <th className="border p-2">Total Applications</th>
-                            <th className="border p-2">View Application</th>
+                            <th className="border p-2">Action</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,7 +39,7 @@ const MyPostedJobs = () => {
                                 <td className="border p-2">{job.jobType || "N/A"}</td>
                                 <td className="border p-2">{job.status || "N/A"}</td>
                                 <td className="border p-2">{job.applicationCount || "N/A"}</td>
-                                <td className="border p-2">{job.status || "N/A"}</td>
+                                <td className="border p-2 underline text-blue-400"><Link to={`/viewApplications/${job._id}`}>View Details</Link></td>
                             </tr>
                         ))}
                     </tbody>
