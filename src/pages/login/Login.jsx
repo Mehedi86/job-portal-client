@@ -4,6 +4,7 @@ import Lottie from 'lottie-react';
 import AuthContext from '../../context/authcontext/AuthContext';
 import SocialLogin from '../shared/SocialLogin';
 import { useLocation, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
     const { signInUser } = useContext(AuthContext);
@@ -18,8 +19,14 @@ const Login = () => {
         const password = form.password.value;
         signInUser(email, password)
             .then(result => {
-                console.log(result)
-                navigate(from);
+                console.log(result.user.email);
+                const user = { email: email }
+                axios.post('http://localhost:5000/jwt', user).then(res => {
+                    console.log(res.data)
+                })
+
+                // navigate(from);
+
             })
             .catch(error => {
                 console.log("error", error.message)
@@ -31,17 +38,18 @@ const Login = () => {
                 <div className="text-center sm:text-left md:w-96">
                     <Lottie animationData={loginLotti}></Lottie>
                 </div>
-                <div onSubmit={handleLogin} className="card bg-base-100 w-full max-w-sm shadow-2xl">
+                <div className="card bg-base-100 w-full max-w-sm shadow-2xl">
                     <h1 className="text-2xl md:text-5xl font-bold text-center mt-4">Login now!</h1>
                     <div className="card-body">
-                        <form className="fieldset">
+                        <form onSubmit={handleLogin} className="fieldset">
                             <label className="fieldset-label">Email</label>
                             <input type="email" className="input" placeholder="Email" name='email' />
                             <label className="fieldset-label">Password</label>
                             <input type="password" className="input" placeholder="Password" name='password' />
                             <div><a className="link link-hover">Forgot password?</a></div>
+                            <button className="btn btn-neutral mt-4">Login</button>
                         </form>
-                        <button className="btn btn-neutral mt-4">Login</button>
+
                         <SocialLogin />
                     </div>
                 </div>
