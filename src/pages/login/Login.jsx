@@ -4,7 +4,7 @@ import Lottie from 'lottie-react';
 import AuthContext from '../../context/authcontext/AuthContext';
 import SocialLogin from '../shared/SocialLogin';
 import { useLocation, useNavigate } from 'react-router-dom';
-import axios from 'axios';
+
 
 const Login = () => {
     const { signInUser } = useContext(AuthContext);
@@ -19,17 +19,8 @@ const Login = () => {
         const password = form.password.value;
         signInUser(email, password)
             .then(result => {
-                console.log(result.user.email);
-                const user = { email: email }
-                axios.post('http://localhost:5000/jwt', user, {
-                    withCredentials: true
-                })
-                    .then(res => {
-                        console.log(res.data)
-                    })
-
-                // navigate(from);
-
+                console.log(result);
+                navigate(from);
             })
             .catch(error => {
                 console.log("error", error.message)

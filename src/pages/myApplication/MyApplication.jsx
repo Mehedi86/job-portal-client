@@ -54,7 +54,7 @@ const MyApplication = () => {
                         <tr key={job._id}>
                             <td>{index + 1}</td>
                             <td>
-                                <img src={job.company_logo} alt="Company Logo" className="w-12 h-12 rounded-full" />
+                                <img src={job.company_logo || "N/A"} alt="Company Logo" className="w-12 h-12 rounded-full" />
                             </td>
                             <td>{job.title}</td>
                             <td>
