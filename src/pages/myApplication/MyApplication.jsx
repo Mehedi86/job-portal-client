@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import useHookContext from '../../hooks/UserContextHook';
 import Swal from 'sweetalert2';
-import axios from 'axios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const MyApplication = () => {
     const [jobs, setJobs] = useState([]);
     const { user } = useHookContext();
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        axios.get(`http://localhost:5000/job-applications?email=${user?.email}`,
-            { withCredentials: true })
-            .then(res => {
-                setJobs(res.data);
-            })
-    }, [user?.email]);
+        axiosSecure.get(`/job-applications?email=${user?.email}`)
+            .then(res => setJobs(res.data));
+    }, [user?.email, axiosSecure]);
 
     const deleteApplication = id => {
         fetch(`http://localhost:5000/job-application/${id}`, {
