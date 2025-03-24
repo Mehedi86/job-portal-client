@@ -4,7 +4,7 @@ import useHookContext from './UserContextHook';
 import { useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: 'https://job-portal-server-umber-ten.vercel.app',
     withCredentials: true
 })
 

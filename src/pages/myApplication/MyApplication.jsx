@@ -14,7 +14,7 @@ const MyApplication = () => {
     }, [user?.email, axiosSecure]);
 
     const deleteApplication = id => {
-        fetch(`http://localhost:5000/job-application/${id}`, {
+        fetch(`https://job-portal-server-umber-ten.vercel.app/job-application/${id}`, {
             method: "DELETE"
         })
             .then(res => res.json())

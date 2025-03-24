@@ -20,7 +20,7 @@ const Application = () => {
             linkedin, github, resume, job_id, user_email
         }
 
-        fetch('http://localhost:5000/job-application', {
+        fetch('https://job-portal-server-umber-ten.vercel.app/job-application', {
             method: "POST",
             headers: {
                 "content-type": "application/json"

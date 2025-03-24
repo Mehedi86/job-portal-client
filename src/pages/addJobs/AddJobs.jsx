@@ -16,7 +16,7 @@ const AddJobs = () => {
         newJobs.requirements = newJobs.requirements.split(', ');
         newJobs.salaryRange = { salaryMin, salaryMax, currency }
 
-        fetch('http://localhost:5000/addJobs', {
+        fetch('https://job-portal-server-umber-ten.vercel.app/addJobs', {
             method: "POST",
             headers: {
                 "content-type": "application/json"
